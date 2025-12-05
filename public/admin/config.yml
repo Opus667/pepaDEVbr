@@ -1,18 +1,22 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Opus667/pepaDEVbr
   branch: main
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
+
+site_url: "https://pepa.dev.br"
 
 collections:
   - name: "blog"
     label: "Blog"
     folder: "src/content/blog"
     create: true
+    format: "frontmatter"
     slug: "{{slug}}"
     fields:
       - { label: "Título", name: "title", widget: "string" }
       - { label: "Data", name: "date", widget: "datetime" }
-      - { label: "Imagem de capa", name: "image", widget: "image" }
+      - { label: "Capa", name: "cover", widget: "image" }
       - { label: "Conteúdo", name: "body", widget: "markdown" }

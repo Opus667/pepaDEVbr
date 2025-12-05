@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <title>Admin</title>
     <meta name="robots" content="noindex" />
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <main id="sveltia-app"></main>
+
+    <script type="module">
+      import CMS from "https://cdn.jsdelivr.net/npm/sveltia-cms/dist/index.js";
 
       CMS.init({
         config: {
@@ -12,15 +18,24 @@
             name: "github",
             repo: "Opus667/pepaDEVbr",
             branch: "main",
+
+            /* AUTENTICAÇÃO GITHUB (Obrigatório no Netlify) */
             auth_type: "implicit",
             app_id: "Ov23lihn1yQ3zb9tF0nN",
+            cms_label_prefix: "PepaCMS",
           },
+
+          site_url: "https://pepa.dev.br",
+
+          media_folder: "/public/uploads",
+          public_folder: "/uploads",
+          publish_mode: "simple",
+          locale: "pt",
+
+          /* opcional — deixa o CMS mais bonito */
+          theme: "dark",
         },
       });
     </script>
-    <script type="module"></script>
-  </head>
-  <body>
-    <main id="sveltia-app"></main>
   </body>
 </html>

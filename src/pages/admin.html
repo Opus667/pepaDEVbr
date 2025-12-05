@@ -2,28 +2,13 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Painel – Pepa CMS</title>
-
-    <!-- Import oficial do Sveltia CMS -->
-    <style>
-      body {
-        margin: 0;
-        background: #111;
-        font-family: sans-serif;
-      }
-      .loading {
-        color: #0f0;
-        font-size: 1.2rem;
-        padding: 20px;
-      }
-    </style>
+    <title>Admin</title>
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
-
   <body>
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
-
-    <div class="loading">Carregando painel…</div>
+    <script>
+      window.CMS.init();
+    </script>
   </body>
 </html>

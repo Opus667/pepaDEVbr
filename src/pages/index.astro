@@ -3,6 +3,10 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+import Layout from '../layouts/Layout.astro';
+import { SignedIn, SignedOut } from '@clerk/astro/components';
+
 ---
 
 <!doctype html>
@@ -11,6 +15,15 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
+		<Layout>
+  <SignedOut>
+    <p>Você não está logado.</p>
+  </SignedOut>
+
+  <SignedIn>
+    <p>Você está logado — sucesso!</p>
+  </SignedIn>
+</Layout>
 		<Header />
 		<main>
 			<h1>🧑‍🚀 Hello, Astronaut!</h1>

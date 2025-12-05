@@ -6,10 +6,6 @@
     <title>Painel – Pepa CMS</title>
 
     <!-- Import oficial do Sveltia CMS -->
-    <script type="module">
-      import "@sveltia/cms";
-    </script>
-
     <style>
       body {
         margin: 0;
@@ -22,11 +18,12 @@
         padding: 20px;
       }
     </style>
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
 
   <body>
-    <div class="loading">Carregando painel…</div>
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 
-    <sveltia-cms config-path="/admin/config.yml" theme="auto"></sveltia-cms>
+    <div class="loading">Carregando painel…</div>
   </body>
 </html>

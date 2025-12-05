@@ -1,16 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pepa CMS</title>
+    <title>Painel – Pepa CMS</title>
 
-    <!-- Sveltia CMS -->
+    <!-- Import oficial do Sveltia CMS -->
     <script type="module">
-      import "sveltia-cms-app";
+      import "@sveltia/cms";
     </script>
+
+    <style>
+      body {
+        margin: 0;
+        background: #111;
+        font-family: sans-serif;
+      }
+      .loading {
+        color: #0f0;
+        font-size: 1.2rem;
+        padding: 20px;
+      }
+    </style>
   </head>
+
   <body>
+    <div class="loading">Carregando painel…</div>
+
     <sveltia-cms config-path="/admin/config.yml" theme="auto"></sveltia-cms>
   </body>
 </html>

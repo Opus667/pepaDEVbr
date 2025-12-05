@@ -2,6 +2,7 @@ backend:
   name: github
   repo: Opus667/pepaDEVbr
   branch: main
+  base_url: https://api.github.com
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -9,14 +10,16 @@ public_folder: "/uploads"
 site_url: "https://pepa.dev.br"
 
 collections:
-  - name: "blog"
-    label: "Blog"
-    folder: "src/content/blog"
+  - name: "posts"
+    label: "Posts"
+    folder: "src/content/posts"
     create: true
-    format: "frontmatter"
     slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
     fields:
       - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descrição", name: "description", widget: "text" }
       - { label: "Data", name: "date", widget: "datetime" }
-      - { label: "Capa", name: "cover", widget: "image" }
-      - { label: "Conteúdo", name: "body", widget: "markdown" }
+      - { label: "Imagem", name: "image", widget: "image" }
+      - { label: "Corpo", name: "body", widget: "markdown" }

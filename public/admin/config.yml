@@ -1,25 +1,30 @@
 backend:
-  name: github
-  repo: Opus667/pepaDEVbr
+  name: git-gateway
   branch: main
 
-media_folder: "src/assets/uploads"
-public_folder: "/assets/uploads"
-
 site_url: "https://pepa.dev.br"
+display_url: "https://pepa.dev.br"
 
-auth:
-  skip: false
-
-publish_mode: editorial_workflow
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
 
 collections:
-  - name: posts
-    label: Posts
+  - name: "posts"
+    label: "Posts"
     folder: "src/content/posts"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "frontmatter"
+    editor:
+      preview: true
     fields:
       - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descrição", name: "description", widget: "string" }
       - { label: "Data", name: "date", widget: "datetime" }
+      - {
+          label: "Imagem de capa",
+          name: "cover",
+          widget: "image",
+          required: false,
+        }
       - { label: "Conteúdo", name: "body", widget: "markdown" }

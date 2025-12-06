@@ -5,6 +5,49 @@ backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
+# ---- CRIA ÂNCORA REUTILIZÁVEL ----
+# Essa âncora (&project_fields) contém o mesmo fields da coleção "projects"
+project_fields: &project_fields
+  - label: "Languages"
+    name: "languages"
+    widget: "object"
+    fields:
+      - label: "Português"
+        name: "pt"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Summary", name: "summary", widget: "text" }
+          - { label: "Hero", name: "hero", widget: "image" }
+          - { label: "Tags", name: "tags", widget: "list" }
+          - { label: "Body (PT)", name: "body", widget: "markdown" }
+
+      - label: "English"
+        name: "en"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Summary", name: "summary", widget: "text" }
+          - { label: "Hero", name: "hero", widget: "image" }
+          - { label: "Tags", name: "tags", widget: "list" }
+          - { label: "Body (EN)", name: "body", widget: "markdown" }
+
+  - label: "Metadata"
+    name: "meta"
+    widget: "object"
+    fields:
+      - { label: "Created At", name: "created_at", widget: "datetime" }
+      - {
+          label: "Updated At",
+          name: "updated_at",
+          widget: "datetime",
+          required: false,
+        }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Stage", name: "stage", widget: "string" }
+      - { label: "Progress", name: "progress", widget: "number" }
+
+# ---- COLEÇÕES ----
 collections:
   - name: "projects"
     label: "Projects"
@@ -12,40 +55,7 @@ collections:
     extension: "mdx"
     format: "frontmatter"
     create: true
-    fields:
-      - label: "Languages"
-        name: "languages"
-        widget: "object"
-        fields:
-          - label: "Português"
-            name: "pt"
-            widget: "object"
-            fields:
-              - {label: "Title", name: "title", widget: "string"}
-              - {label: "Summary", name: "summary", widget: "text"}
-              - {label: "Hero", name: "hero", widget: "image"}
-              - {label: "Tags", name: "tags", widget: "list"}
-              - {label: "Body (PT)", name: "body", widget: "markdown"}
-
-          - label: "English"
-            name: "en"
-            widget: "object"
-            fields:
-              - {label: "Title", name: "title", widget: "string"}
-              - {label: "Summary", name: "summary", widget: "text"}
-              - {label: "Hero", name: "hero", widget: "image"}
-              - {label: "Tags", name: "tags", widget: "list"}
-              - {label: "Body (EN)", name: "body", widget: "markdown"}
-
-      - label: "Metadata"
-        name: "meta"
-        widget: "object"
-        fields:
-          - {label: "Created At", name: "created_at", widget: "datetime"}
-          - {label: "Updated At", name: "updated_at", widget: "datetime", required: false}
-          - {label: "Category", name: "category", widget: "string"}
-          - {label: "Stage", name: "stage", widget: "string"}
-          - {label: "Progress", name: "progress", widget: "number"}
+    fields: *project_fields
 
   - name: "insights"
     label: "Insights"
@@ -53,7 +63,7 @@ collections:
     extension: "mdx"
     format: "frontmatter"
     create: true
-    fields: *fields
+    fields: *project_fields
 
   - name: "studio"
     label: "Studio"
@@ -61,4 +71,4 @@ collections:
     extension: "mdx"
     format: "frontmatter"
     create: true
-    fields: *fields
+    fields: *project_fields

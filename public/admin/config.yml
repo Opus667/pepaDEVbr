@@ -1,18 +1,21 @@
 backend:
   name: git-gateway
 
+local_backend: true
 media_folder: "" # 🚨 vazio para permitir caminho relativo
 public_folder: "" # 🚨 vazio para permitir caminho relativo
 
 collections:
-  - name: "posts"
-    label: "Posts"
+  - name: "blog"
+    label: "Blog"
     folder: "src/content/blog"
     create: true
     slug: "{{slug}}"
     path: "{{slug}}/index"
     media_folder: "" # usa a mesma pasta do post
     public_folder: ""
+    format: "frontmatter"
+    extension: "mdx"
     editor:
       preview: true
 

@@ -14,7 +14,7 @@ import remarkToc from "remark-toc";
 import remarkEmoji from "remark-emoji";
 import remarkGemoji from "remark-gemoji";
 import remarkTextr from "remark-textr";
-import remarkTypograf from "@mavrin/remark-typograf";
+// import remarkTypograf from "@mavrin/remark-typograf";
 
 // Rehype
 import rehypeRaw from "rehype-raw";
@@ -35,7 +35,7 @@ export default defineConfig({
         [remarkEmoji, { emoticon: true }],
         remarkGemoji,
         remarkTextr,
-        remarkTypograf,
+        // remarkTypograf,
       ],
       rehypePlugins: [
         rehypeRaw, // Permite HTML dentro do MDX

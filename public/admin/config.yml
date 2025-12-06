@@ -3,8 +3,8 @@ backend:
   repo: username/reponame
   branch: main
 local_backend: true
-media_folder: src/assets/img
-public_folder: src/assets/img
+media_folder: ""
+public_folder: ""
 
 collections:
   - name: blog

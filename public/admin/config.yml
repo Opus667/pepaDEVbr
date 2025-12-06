@@ -2,8 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "public/uploads"
-public_folder: "/uploads"
+media_folder: ""
+public_folder: ""
 
 # ---- CRIA ÂNCORA REUTILIZÁVEL ----
 # Essa âncora (&project_fields) contém o mesmo fields da coleção "projects"

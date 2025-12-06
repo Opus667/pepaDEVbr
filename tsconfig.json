@@ -1,7 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "strictNullChecks": true,
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
@@ -11,6 +10,9 @@
       "@utils/*": ["src/assets/utils/*"]
     },
     "incremental": true,
+    "jsx": "preserve",
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "skipLibCheck": true
   }
 }

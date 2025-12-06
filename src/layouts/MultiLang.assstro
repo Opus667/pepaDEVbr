@@ -1,0 +1,70 @@
+---
+interface LangBlock {
+  title: string;
+  summary: string;
+  body: string;
+  hero?: string;
+  tags?: string[];
+}
+
+interface Props {
+  languages: {
+    pt: LangBlock;
+    en: LangBlock;
+  };
+  meta?: Record<string, any>;
+}
+
+const { languages } = Astro.props;
+
+// idioma padrão no SSR
+const lang = "pt";
+const current = languages[lang];
+---
+
+<script define:vars={{ languages }}>
+  // Conteúdo multilíngue acessível no client
+  window.__CONTENT__ = {
+    pt: languages.pt,
+    en: languages.en,
+  };
+
+  // Idioma atual salvo no navegador
+  let currentLang = "pt";
+
+  if (typeof window !== "undefined") {
+    currentLang = localStorage.getItem("lang") || "pt";
+  }
+
+  function updateLang(lang) {
+    if (!window.__CONTENT__[lang]) return;
+
+    localStorage.setItem("lang", lang);
+
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n;
+      const value = window.__CONTENT__[lang][key] || "";
+
+      if (el.hasAttribute("data-html")) {
+        el.innerHTML = value;
+      } else {
+        el.textContent = value;
+      }
+    });
+  }
+
+  window.addEventListener("langchange", (ev) => {
+    updateLang(ev.detail);
+  });
+
+  // aplica imediatamente
+  updateLang(currentLang);
+</script>
+
+<article>
+  <h1 data-i18n="title">{current.title}</h1>
+  <p data-i18n="summary">{current.summary}</p>
+
+  <!-- body precisa de um atributo para diferenciar do texto puro -->
+  <div data-i18n="body" data-html="true" set:html={current.body}></div>
+</article>

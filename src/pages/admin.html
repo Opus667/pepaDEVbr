@@ -13,6 +13,16 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+
+    <script>
+      // caso o Netlify envie errado até aqui
+      if (!window.location.pathname.includes("/admin")) {
+        if (window.location.hash.includes("invite_token")) {
+          const token = window.location.hash;
+          window.location.href = "/admin/" + token;
+        }
+      }
+    </script>
   </head>
   <body>
     <script>

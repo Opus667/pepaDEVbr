@@ -7,13 +7,15 @@ media_folder: src/assets/img
 public_folder: src/assets/img
 
 collections:
-  - name: "blog"
-    label: "Blog"
+  - name: blog
+    label: Blog
     folder: "src/content/blog"
     create: true
+    format: "frontmatter"
+    extension: "mdx"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "ogImage", name: "ogImage", widget: "image" }
-      - { label: "Description", name: "description", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descrição", name: "description", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Capa", name: "image", widget: "image" }
+      - { label: "Conteúdo", name: "body", widget: "markdown" }

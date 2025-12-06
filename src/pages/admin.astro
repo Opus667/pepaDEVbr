@@ -30,6 +30,16 @@
       // eslint-disable-next-line
       CMS.registerPreviewStyle("/global.css");
     </script>
+    <script>
+  // caso o Netlify envie errado até aqui
+      if (!window.location.pathname.includes("/admin")) {
+        if (window.location.hash.includes("invite_token")) {
+          const token = window.location.hash;
+          window.location.href = "/admin/" + token;
+        }
+      }
+    </script>
+
     <!-- Only showing body in preview panel -->
     <script src="@utils/preview.js"></script>
   </body>

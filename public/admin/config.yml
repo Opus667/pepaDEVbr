@@ -1,6 +1,7 @@
 backend:
-  name: git-gateway
-  branch: latest
+  name: github
+  repo: Opus667/pepaDEVbr
+  branch: main
 
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"

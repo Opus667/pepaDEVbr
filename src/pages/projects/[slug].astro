@@ -1,37 +1,34 @@
 ---
 import { getCollection } from "astro:content";
 
-// Carrega todos os projetos
-const projects = await getCollection("projects");
-
-// Gera rotas estáticas
+// getStaticPaths deve chamar getCollection DENTRO da função
 export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+
   return projects.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
 }
 
-// Recebe props do getStaticPaths
+// Props vindas do getStaticPaths
 const { entry } = Astro.props;
 
-// idiomas
-const lang = "pt"; // default server-side
+// Idioma padrão
+const lang = "pt";
 const current = entry.data.languages[lang];
-
 ---
 
 <article>
   <h1 data-i18n="title">{current.title}</h1>
   <p data-i18n="summary">{current.summary}</p>
 
-  <img src={entry.data.hero} alt={current.title} />
+  {entry.data.hero && <img src={entry.data.hero} alt={current.title} />}
 
   <div data-i18n="body" set:html={current.body}></div>
 </article>
 
 <script define:vars={{ entry }}>
-  // coloca as strings no window
   window.__CONTENT__ = entry.data.languages;
 
   let active = localStorage.getItem("lang") || "pt";
@@ -50,4 +47,3 @@ const current = entry.data.languages[lang];
 
   update(active);
 </script>
-

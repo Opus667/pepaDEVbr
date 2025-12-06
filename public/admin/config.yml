@@ -8,6 +8,8 @@ public_folder: "/uploads"
 # ---- CRIA ÂNCORA REUTILIZÁVEL ----
 # Essa âncora (&project_fields) contém o mesmo fields da coleção "projects"
 project_fields: &project_fields
+  - { label: "Title", name: "title", widget: "string" }
+  - { label: "Hero", name: "hero", widget: "image" }
   - label: "Languages"
     name: "languages"
     widget: "object"
@@ -16,9 +18,7 @@ project_fields: &project_fields
         name: "pt"
         widget: "object"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
           - { label: "Summary", name: "summary", widget: "text" }
-          - { label: "Hero", name: "hero", widget: "image" }
           - { label: "Tags", name: "tags", widget: "list" }
           - { label: "Body (PT)", name: "body", widget: "markdown" }
 
@@ -26,9 +26,7 @@ project_fields: &project_fields
         name: "en"
         widget: "object"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
           - { label: "Summary", name: "summary", widget: "text" }
-          - { label: "Hero", name: "hero", widget: "image" }
           - { label: "Tags", name: "tags", widget: "list" }
           - { label: "Body (EN)", name: "body", widget: "markdown" }
 

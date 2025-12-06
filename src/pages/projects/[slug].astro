@@ -1,0 +1,13 @@
+---
+import ProjectPage from "../../components/ProjectPage.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const entry = projects.find(p => p.slug === Astro.params.slug);
+
+if (!entry) {
+  throw new Error(`Project not found: ${Astro.params.slug}`);
+}
+---
+
+<ProjectPage entry={entry} />

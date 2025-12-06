@@ -56,13 +56,8 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
-			<script type="module">
-			  import { initLanguage, setLanguage } from "/src/scripts/lang.js";
-			  initLanguage(); 
-
-			  document.querySelectorAll("[data-lang]").forEach((btn) => {
-				btn.addEventListener("click", () => {
-				  setLanguage(btn.dataset.lang);
-				});
-			  });
-			</script>
+<script type="module">
+  import { initLanguage, setLang } from "/src/scripts/lang.js";
+  initLanguage();
+  // attach to buttons if needed
+</script>

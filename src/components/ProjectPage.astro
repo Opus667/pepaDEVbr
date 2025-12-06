@@ -1,0 +1,55 @@
+---
+const { entry } = Astro.props;
+
+/**
+ * entry: a entry obtida via getCollection('projects') ou getEntryBySlug
+ * Example usage in page: <ProjectPage entry={entry} />
+ */
+
+const cookieLang = (() => {
+  try {
+    return document ? (document.cookie.split("; ").find(r => r.startsWith("lang="))?.split("=")[1]) : null;
+  } catch {
+    return null;
+  }
+})();
+
+const defaultLang = "pt";
+let lang = defaultLang;
+// server-side: use cookie from request? For simplicity we render PT on SSR and provide switcher client-side.
+const data = entry.data;
+const content = data.languages?.[lang] || data.languages.pt;
+---
+<section class="project">
+  <header>
+    <h1>{data.title}</h1>
+    {data.hero && <img src={data.hero} alt={data.title} />}
+  </header>
+
+  <nav class="lang-switch">
+    <button on:click={() => { /* client-only handler below */ }} data-lang="pt">PT 🇧🇷</button>
+    <button data-lang="en">EN 🇺🇸</button>
+  </nav>
+
+  <article>
+    <p><strong>Resumo:</strong> {content.summary}</p>
+    <div class="body" set:html={content.body}></div>
+  </article>
+
+  <footer>
+    <small>Categoria: {data.meta.category} — Progresso: {String(data.meta.progress)}%</small>
+  </footer>
+</section>
+
+<script type="module">
+  import { initLanguage, setLang } from "/src/scripts/lang.js";
+  initLanguage();
+
+  document.querySelectorAll(".lang-switch [data-lang]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setLang(btn.dataset.lang);
+    });
+  });
+
+  // When the lang changes, update content DOM: simple approach reloads page (setLang does reload).
+</script>

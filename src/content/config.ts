@@ -1,14 +1,15 @@
 import { defineCollection, z } from "astro:content";
 
 const langSchema = z.object({
-  title: z.string(),
   summary: z.string(),
-  hero: z.string().optional(),
   tags: z.array(z.string()).optional(),
   body: z.string(),
 });
 
 const multiSchema = z.object({
+  title: z.string(),
+  hero: z.string().optional(),
+
   languages: z.object({
     pt: langSchema,
     en: langSchema,

@@ -1,33 +1,63 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-const blog = defineCollection({
-  // Load Markdown and MDX files in the `src/content/blog/` directory.
-  loader: glob({ base: "./src/content/blog", pattern: "**/*.{md,mdx}" }),
-  // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      // Transform string to Date object
-      pubDate: z.coerce.date(),
-      updatedDate: z.coerce.date().optional(),
-      heroImage: image().optional(),
+//
+// SCHEMA REUTILIZÁVEL (equivalente ao &project_fields do YAML)
+//
+const projectSchema = ({ image }: any) =>
+  z.object({
+    title: z.string(),
+    hero: image().optional(),
+
+    languages: z.object({
+      pt: z.object({
+        summary: z.string(),
+        tags: z.array(z.string()).optional(),
+        body: z.string().optional(),
+      }),
+      en: z.object({
+        summary: z.string(),
+        tags: z.array(z.string()).optional(),
+        body: z.string().optional(),
+      }),
     }),
-});
+
+    meta: z.object({
+      created_at: z.coerce.date(),
+      updated_at: z.coerce.date().optional(),
+      category: z.string(),
+      stage: z.string(),
+      progress: z.number(),
+    }),
+  });
+
+//
+// COLEÇÕES
+//
+
+// Projects
 const projects = defineCollection({
-  // Load Markdown and MDX files in the `src/content/projects/` directory.
   loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
-  // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      // Transform string to Date object
-      pubDate: z.coerce.date(),
-      updatedDate: z.coerce.date().optional(),
-      heroImage: image().optional(),
-    }),
+  schema: projectSchema,
 });
 
-export const collections = { blog, projects };
+// Insights
+const insights = defineCollection({
+  loader: glob({ base: "./src/content/insights", pattern: "**/*.{md,mdx}" }),
+  schema: projectSchema,
+});
+
+// Studio
+const studio = defineCollection({
+  loader: glob({ base: "./src/content/studio", pattern: "**/*.{md,mdx}" }),
+  schema: projectSchema,
+});
+
+//
+// EXPORTA TUDO
+//
+export const collections = {
+  projects,
+  insights,
+  studio,
+};

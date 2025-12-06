@@ -1,0 +1,8 @@
+/*
+  Content-Type: text/html; charset=UTF-8
+
+/admin/config.yml
+  Content-Type: text/yaml
+
+/admin/config.yaml
+  Content-Type: text/yaml

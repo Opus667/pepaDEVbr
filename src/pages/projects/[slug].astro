@@ -1,13 +1,53 @@
 ---
-import ProjectPage from "../../components/ProjectPage.astro";
 import { getCollection } from "astro:content";
 
+// Carrega todos os projetos
 const projects = await getCollection("projects");
-const entry = projects.find(p => p.slug === Astro.params.slug);
 
-if (!entry) {
-  throw new Error(`Project not found: ${Astro.params.slug}`);
+// Gera rotas estáticas
+export async function getStaticPaths() {
+  return projects.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
 }
+
+// Recebe props do getStaticPaths
+const { entry } = Astro.props;
+
+// idiomas
+const lang = "pt"; // default server-side
+const current = entry.data.languages[lang];
+
 ---
 
-<ProjectPage entry={entry} />
+<article>
+  <h1 data-i18n="title">{current.title}</h1>
+  <p data-i18n="summary">{current.summary}</p>
+
+  <img src={entry.data.hero} alt={current.title} />
+
+  <div data-i18n="body" set:html={current.body}></div>
+</article>
+
+<script define:vars={{ entry }}>
+  // coloca as strings no window
+  window.__CONTENT__ = entry.data.languages;
+
+  let active = localStorage.getItem("lang") || "pt";
+
+  function update(lang) {
+    active = lang;
+    localStorage.setItem("lang", lang);
+
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n;
+      el.innerHTML = window.__CONTENT__[lang][key];
+    });
+  }
+
+  window.addEventListener("langchange", (ev) => update(ev.detail));
+
+  update(active);
+</script>
+

@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  repo: username/reponame
+  branch: main
+local_backend: true
+media_folder: src/assets/img
+public_folder: src/assets/img
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "ogImage", name: "ogImage", widget: "image" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }

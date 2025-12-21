@@ -62,7 +62,7 @@ collections:
     create: true
 
     # 🔥 slug definitivo
-    slug: "projects/{{year}}_{{month}}_{{day}}-{{hour}}_{{minute}}_{{entry | slugify}}"
+    slug: "{{year}}{{month}}{{day}}_{{hour}}{{minute}}_{{entry | slugify}}"
 
     media_folder: "/src/assets/projects/"
     public_folder: "../../assets/projects/"
@@ -75,7 +75,7 @@ collections:
     format: "frontmatter"
     create: true
 
-    slug: "insights/{{year}}_{{month}}_{{day}}-{{hour}}_{{minute}}_{{entry | slugify}}"
+    slug: "{{year}}{{month}}{{day}}_{{hour}}{{minute}}_{{entry | slugify}}"
 
     media_folder: "/src/assets/insights/"
     public_folder: "../../assets/insights/"
@@ -88,7 +88,7 @@ collections:
     format: "frontmatter"
     create: true
 
-    slug: "studio/{{year}}_{{month}}_{{day}}-{{hour}}_{{minute}}_{{entry | slugify}}"
+    slug: "{{year}}{{month}}{{day}}_{{hour}}{{minute}}_{{entry | slugify}}"
 
     media_folder: "/src/assets/studio/"
     public_folder: "../../assets/studio/"

@@ -103,7 +103,7 @@ const posts = (await getCollection('projects')).sort((a, b) => {
 
 			return (
 				<li>
-					<a href={`./en/projects/${post.id}/`}>
+					<a href={`/en/projects/${post.id}/`}>
 						{post.data.hero && (
 							<Image
 								width={720}
@@ -120,8 +120,6 @@ const posts = (await getCollection('projects')).sort((a, b) => {
 								date={post.data.meta.updated_at ?? post.data.meta.created_at}
 							/>
 						</p>
-						{`./en/projects/${post.id}/`}
-						{`${post.id}/`}
 					</a>
 				</li>
 			);

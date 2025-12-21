@@ -1,26 +1,48 @@
 ---
-import { Image } from 'astro:assets';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
-
 interface Props {
-  collection: 'projects' | 'insights' | 'studio';
-  data: any;
+  title?: string;
+  summary?: string;
+  meta: {
+    created_at: Date;
+    updated_at?: Date;
+  };
+  hero?: ImageMetadata;
+
+  // opcional (content collections)
+  data?: {
+    languages?: Record<string, {
+      title?: string;
+      summary?: string;
+      body?: string;
+      tags?: string[];
+    }>;
+  };
+
+  tags?: string[];
 }
 
-const { data } = Astro.props as Props;
+const {
+  title,
+  summary,
+  meta,
+  hero,
+  data,
+  tags = [],
+} = Astro.props;
 
-// idioma (simples por enquanto)
-const lang = 'pt';
+// idioma
+const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'pt';
 
-const title = data.languages?.[lang]?.title;
-const summary = data.languages?.[lang]?.summary;
-const hero = data.hero;
+// resolve conteúdo
+const localized = data?.languages?.[lang];
 
-const createdAt = data.meta?.created_at;
-const updatedAt = data.meta?.updated_at;
+const resolvedTitle = localized?.title ?? title;
+const resolvedSummary = localized?.summary ?? summary;
+const resolvedTags = localized?.tags ?? tags;
+
+if (!resolvedTitle) {
+  throw new Error('BlogPost: title não definido');
+}
 ---
 
 <html lang={lang}>
@@ -57,35 +79,21 @@ const updatedAt = data.meta?.updated_at;
     <Header />
 
     <main>
-      <article>
-        {hero && (
-          <div class="hero-image">
-            <Image src={hero} width={1020} height={510} alt={title} />
-          </div>
-        )}
+<article>
+  <h1>{resolvedTitle}</h1>
 
-        <div class="prose">
-          <div class="title">
-            {createdAt && (
-              <div class="date">
-                <FormattedDate date={createdAt} />
-              </div>
-            )}
+  {resolvedSummary && <p>{resolvedSummary}</p>}
 
-            {updatedAt && (
-              <div class="date">
-                Atualizado em <FormattedDate date={updatedAt} />
-              </div>
-            )}
+  {hero && <img src={hero.src} alt={resolvedTitle} />}
 
-            <h1>{title}</h1>
-            <p>{summary}</p>
-            <hr />
-          </div>
+  <slot />
 
-          <slot />
-        </div>
-      </article>
+  {meta?.created_at && (
+    <time datetime={meta.created_at.toISOString()}>
+      {meta.created_at.toLocaleDateString()}
+    </time>
+  )}
+</article>
     </main>
 
     <Footer />

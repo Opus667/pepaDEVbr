@@ -2,18 +2,92 @@ backend:
   name: git-gateway
   branch: main
 
+# pasta default (fallback)
 media_folder: "src/assets/images" # Location where files will be stored in the repo
 public_folder: "../../assets/images" # The src attribute for uploaded media
 
+# ---- ANCORAS ----
+log_fields: &log_fields
+  - { label: "Entry", name: "entry", widget: "string" }
+  - { label: "Hero", name: "hero", widget: "image", required: false }
+  - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+    slug: "{{collection}}/{{entry | slugify}}"
+
+
+  - label: "Languages"
+    name: "languages"
+    widget: "object"
+    fields:
+      - label: "Português"
+        name: "pt"
+        widget: "object"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Resumo", name: "summary", widget: "text" }
+          - { label: "Tags", name: "tags", widget: "list" }
+          - { label: "Body (PT)", name: "body", widget: "markdown" }
+
+      - label: "English"
+        name: "en"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Summary", name: "summary", widget: "text" }
+          - { label: "Tags", name: "tags", widget: "list" }
+          - { label: "Body (EN)", name: "body", widget: "markdown" }
+
+  - label: "Metadata"
+    name: "meta"
+    widget: "object"
+    fields:
+      - { label: "Created At", name: "created_at", widget: "datetime" }
+      - {
+          label: "Updated At",
+          name: "updated_at",
+          widget: "datetime",
+          required: false,
+        }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Stage", name: "stage", widget: "string" }
+      - {
+          label: "Progress",
+          name: "progress",
+          widget: "number",
+          min: 0,
+          max: 100,
+        }
+
+# ---- COLEÇÕES ----
 collections:
-  - name: "blog" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog" # Used in the UI
-    folder: "src/content/{{collection}}" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    fields: # The fields for each document, usually in frontmatter
-      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "pubDate", widget: "datetime" }
-      - { label: "Featured Image", name: "heroImage", widget: "image" }
-      - { label: "Description", name: "description", widget: "markdown" }
-      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "projects"
+    label: "Projects"
+    folder: "/src/content/projects"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    # usa o título (em PT ou EN) para o slug (fallback no momento usando title)
+    # pasta de mídias para cada item (sob /public/uploads)
+    media_folder: "src/assets/projects/{{slug}}"
+    public_folder: "../../assets/projects/{{slug}}"
+
+    fields: *log_fields
+
+  - name: "insights"
+    label: "Insights"
+    folder: "/src/content/insights"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    media_folder: "src/assets/insights/{{slug}}"
+    public_folder: "../../assets/insights/{{slug}}"
+    fields: *project_fields
+
+  - name: "studio"
+    label: "Studio"
+    folder: "/src/content/studio"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    media_folder: "src/assets/studio/{{slug}}"
+    public_folder: "../../assets/studio/{{slug}}"
+    fields: *project_fields

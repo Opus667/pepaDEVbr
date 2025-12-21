@@ -4,15 +4,12 @@ backend:
 
 # pasta default (fallback)
 media_folder: "src/assets/images" # Location where files will be stored in the repo
-public_folder: "../../assets/images" # The src attribute for uploaded media
+public_folder: "src/assets/images" # The src attribute for uploaded media
 
 # ---- ANCORAS ----
-log_fields: &log_fields
-  - { label: "Entry", name: "entry", widget: "string" }
+project_fields: &project_fields
+  - { label: "Title", name: "title", widget: "string" }
   - { label: "Hero", name: "hero", widget: "image", required: false }
-  - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
-    slug: "{{collection}}/{{entry | slugify}}"
-
 
   - label: "Languages"
     name: "languages"
@@ -22,8 +19,7 @@ log_fields: &log_fields
         name: "pt"
         widget: "object"
         fields:
-          - { label: "Título", name: "title", widget: "string" }
-          - { label: "Resumo", name: "summary", widget: "text" }
+          - { label: "Summary", name: "summary", widget: "text" }
           - { label: "Tags", name: "tags", widget: "list" }
           - { label: "Body (PT)", name: "body", widget: "markdown" }
 
@@ -31,7 +27,6 @@ log_fields: &log_fields
         name: "en"
         widget: "object"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
           - { label: "Summary", name: "summary", widget: "text" }
           - { label: "Tags", name: "tags", widget: "list" }
           - { label: "Body (EN)", name: "body", widget: "markdown" }
@@ -66,11 +61,11 @@ collections:
     format: "frontmatter"
     create: true
     # usa o título (em PT ou EN) para o slug (fallback no momento usando title)
+    slug: "{{title | slugify}}"
     # pasta de mídias para cada item (sob /public/uploads)
-    media_folder: "src/assets/projects/{{slug}}"
-    public_folder: "../../assets/projects/{{slug}}"
-
-    fields: *log_fields
+    media_folder: "/public/uploads/projects/{{slug}}"
+    public_folder: "/uploads/projects/{{slug}}"
+    fields: *project_fields
 
   - name: "insights"
     label: "Insights"
@@ -78,8 +73,9 @@ collections:
     extension: "mdx"
     format: "frontmatter"
     create: true
-    media_folder: "src/assets/insights/{{slug}}"
-    public_folder: "../../assets/insights/{{slug}}"
+    slug: "{{title | slugify}}"
+    media_folder: "/public/uploads/insights/{{slug}}"
+    public_folder: "/uploads/insights/{{slug}}"
     fields: *project_fields
 
   - name: "studio"
@@ -88,6 +84,7 @@ collections:
     extension: "mdx"
     format: "frontmatter"
     create: true
-    media_folder: "src/assets/studio/{{slug}}"
-    public_folder: "../../assets/studio/{{slug}}"
+    slug: "{{title | slugify}}"
+    media_folder: "/public/uploads/studio/{{slug}}"
+    public_folder: "/uploads/studio/{{slug}}"
     fields: *project_fields

@@ -3,6 +3,40 @@ import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+
+	return projects.map((project) => ({
+		params: {
+			slug: project.id.split('/'), // ✅ correto para [...slug]
+		},
+		props: project,
+	}));
+}
+
+type Props = CollectionEntry<'projects'>;
+
+const project = Astro.props as Props;
+const { Content } = await render(project);
+
+// idioma (simples e explícito)
+const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'pt';
+const localized = project.data.languages[lang];
+---
+
+<BlogPost
+	title={localized.title}
+	summary={localized.summary}
+	meta={project.data.meta}
+	tags={project.data.tags}
+	hero={project.data.hero}
+>
+	<Content />
+</BlogPost>
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
   const posts = await getCollection('projects');
 
   return posts.map((post) => ({

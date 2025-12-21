@@ -8,7 +8,7 @@ import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('studio')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	(a, b) => b.data.meta.updated_at.valueOf() - a.data.meta.updated_at.valueOf(),
 );
 ---
 
@@ -100,7 +100,7 @@ const posts = (await getCollection('studio')).sort(
 									)}
 									<h4 class="title">{post.data.title}</h4>
 									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
+										<FormattedDate date={post.data.meta.updated_at} />
 									</p>
 								</a>
 							</li>

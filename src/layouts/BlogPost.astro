@@ -27,6 +27,7 @@ interface Props {
   };
 
   tags?: string[];
+  body?: string;
 }
 
 const {
@@ -36,6 +37,7 @@ const {
   hero,
   data,
   tags = [],
+  body,
 } = Astro.props;
 
 // idioma atual
@@ -47,6 +49,7 @@ const localized = data?.languages?.[lang];
 const resolvedTitle = localized?.title ?? title;
 const resolvedSummary = localized?.summary ?? summary;
 const resolvedTags = localized?.tags ?? tags;
+const resolvedBody = localized?.body ?? body;
 
 if (!resolvedTitle) {
   throw new Error('BlogPost: title não definido');
@@ -112,6 +115,7 @@ if (!resolvedTitle) {
         )}
 
         <slot />
+        {resolvedBody}
       </article>
     </main>
 

@@ -63,8 +63,8 @@ collections:
     # usa o título (em PT ou EN) para o slug (fallback no momento usando title)
     slug: "{{title | slugify}}"
     # pasta de mídias para cada item (sob /public/uploads)
-    media_folder: "src/assets/projects/{{slug}}" # Location where files will be stored in the repo
-    public_folder: "../../assets/projects/{{slug}}" # The src attribute for uploaded media
+    media_folder: "/src/assets/projects/" # Location where files will be stored in the repo
+    public_folder: "../../assets/projects/" # The src attribute for uploaded media
     fields: *project_fields
 
   - name: "insights"
@@ -74,8 +74,8 @@ collections:
     format: "frontmatter"
     create: true
     slug: "{{title | slugify}}"
-    media_folder: "src/assets/insights/{{slug}}" # Location where files will be stored in the repo
-    public_folder: "../../assets/insights/{{slug}}" # The src attribute for uploaded media
+    media_folder: "/src/assets/insights/" # Location where files will be stored in the repo
+    public_folder: "../../assets/insights/" # The src attribute for uploaded media
     fields: *project_fields
 
   - name: "studio"
@@ -85,6 +85,6 @@ collections:
     format: "frontmatter"
     create: true
     slug: "{{title | slugify}}"
-    media_folder: "src/assets/studio/{{slug}}" # Location where files will be stored in the repo
-    public_folder: "../../assets/studio/{{slug}}" # The src attribute for uploaded media
+    media_folder: "/src/assets/studio/" # Location where files will be stored in the repo
+    public_folder: "../../assets/studio/" # The src attribute for uploaded media
     fields: *project_fields

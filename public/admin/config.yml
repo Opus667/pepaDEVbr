@@ -3,7 +3,7 @@ backend:
   branch: main
 
 media_folder: "src/assets/images" # Location where files will be stored in the repo
-public_folder: "src/assets/images" # The src attribute for uploaded media
+public_folder: "../../assets/images" # The src attribute for uploaded media
 
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog

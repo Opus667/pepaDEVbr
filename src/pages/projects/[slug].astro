@@ -2,55 +2,42 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
+// 1️⃣ Geração das páginas estáticas
 export async function getStaticPaths() {
-	const projects = await getCollection('projects');
+  const projects = await getCollection('projects');
 
-	return projects.map((project) => ({
-		params: {
-			slug: project.id.split('/'), // ✅ correto para [...slug]
-		},
-		props: project,
-	}));
-}
-
-type Props = CollectionEntry<'projects'>;
-
-const project = Astro.props as Props;
-const { Content } = await render(project);
-
-// idioma (simples e explícito)
-const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'pt';
-const localized = project.data.languages[lang];
----
-
-<BlogPost
-	title={localized.title}
-	summary={localized.summary}
-	meta={project.data.meta}
-	tags={project.data.tags}
-	hero={project.data.hero}
->
-	<Content />
-</BlogPost>
----
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
-
-export async function getStaticPaths() {
-  const posts = await getCollection('projects');
-
-  return posts.map((post) => ({
-    params: { slug: post.id }, // string ✔
-    props: post,
+  return projects.map((project) => ({
+    params: {
+      slug: project.id, // ✅ string (CORRETO para [slug].astro)
+    },
+    props: project,
   }));
 }
 
+// 2️⃣ Tipagem correta
 type Props = CollectionEntry<'projects'>;
-const post = Astro.props as Props;
+const project = Astro.props as Props;
 
-const { Content } = await render(post);
+// 3️⃣ Render do conteúdo MD/MDX
+const { Content } = await render(project);
+
+// 4️⃣ Idioma (simples, previsível, sem mágica)
+const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'pt';
+const localized = project.data.languages?.[lang];
+
+// 5️⃣ Fallback defensivo (evita crash em build)
+if (!localized) {
+  throw new Error(`Idioma "${lang}" não encontrado em ${project.id}`);
+}
 ---
 
-<BlogPost collection="projects" data={post.data}>
+<!-- 6️⃣ Layout SEM Fragment -->
+<BlogPost
+  title={localized.title}
+  summary={localized.summary}
+  meta={project.data.meta}
+  tags={project.data.tags}
+  hero={project.data.hero}
+>
   <Content />
 </BlogPost>

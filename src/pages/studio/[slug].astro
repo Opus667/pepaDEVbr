@@ -1,0 +1,43 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+// 1️⃣ Geração das páginas estáticas
+export async function getStaticPaths() {
+  const studio = await getCollection('studio');
+
+  return studio.map((std) => ({
+    params: {
+      slug: std.id, // ✅ string (CORRETO para [slug].astro)
+    },
+    props: std,
+  }));
+}
+
+// 2️⃣ Tipagem correta
+type Props = CollectionEntry<'studio'>;
+const std = Astro.props as Props;
+
+// 3️⃣ Render do conteúdo MD/MDX
+const { Content } = await render(std);
+
+// 4️⃣ Idioma (simples, previsível, sem mágica)
+const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'pt';
+const localized = std.data.languages?.[lang];
+
+// 5️⃣ Fallback defensivo (evita crash em build)
+if (!localized) {
+  throw new Error(`Idioma "${lang}" não encontrado em ${std.id}`);
+}
+---
+
+<!-- 6️⃣ Layout SEM Fragment -->
+<BlogPost
+  title={localized.title}
+  summary={localized.summary}
+  meta={std.data.meta}
+  tags={std.data.tags}
+  hero={std.data.hero}
+>
+  <Content />
+</BlogPost>

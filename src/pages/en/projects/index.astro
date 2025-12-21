@@ -1,5 +1,4 @@
 ---
-
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../../components/BaseHead.astro';
@@ -99,26 +98,32 @@ const posts = (await getCollection('projects')).sort((a, b) => {
 			<section>
 <ul>
 	{
-posts.map((post) => {
-	const localized = post.data.languages[lang];
+		posts.map((post) => {
+			const localized = post.data.languages[lang];
 
-	return (
-		<li>
-			<a href={`/${lang === 'en' ? 'en/' : ''}projects/${post.id}/`}>
-				{post.data.hero && (
-					<Image
-						width={720}
-						height={360}
-						src={post.data.hero}
-						alt={localized.title}
-					/>
-				)}
+			return (
+				<li>
+					<a href={`en/projects/${post.id}/`}>
+						{post.data.hero && (
+							<Image
+								width={720}
+								height={360}
+								src={post.data.hero}
+								alt={localized.title}
+							/>
+						)}
 
-				<h4 class="title">{localized.title}</h4>
-			</a>
-		</li>
-	);
-});
+						<h4 class="title">{localized.title}</h4>
+
+						<p class="date">
+							<FormattedDate
+								date={post.data.meta.updated_at ?? post.data.meta.created_at}
+							/>
+						</p>
+					</a>
+				</li>
+			);
+		})
 	}
 </ul>
 			</section>

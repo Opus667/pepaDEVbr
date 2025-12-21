@@ -1,4 +1,5 @@
 ---
+
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
@@ -7,9 +8,15 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
-const posts = (await getCollection('projects')).sort(
-	(a, b) => b.data.meta.updated_at.valueOf() - a.data.meta.updated_at.valueOf(),
-);
+const lang = 'pt';
+
+const posts = (await getCollection('projects')).sort((a, b) => {
+	const aDate = a.data.meta.updated_at ?? a.data.meta.created_at;
+	const bDate = b.data.meta.updated_at ?? b.data.meta.created_at;
+	return bDate.valueOf() - aDate.valueOf();
+});
+---
+
 ---
 
 <!doctype html>
@@ -90,23 +97,36 @@ const posts = (await getCollection('projects')).sort(
 		<Header />
 		<main>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/projects/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.meta.updated_at} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+<ul>
+	{
+		posts.map((post) => {
+			const localized = post.data.languages[lang];
+
+			return (
+				<li>
+					<a href={`/projects/${post.id}/`}>
+						{post.data.hero && (
+							<Image
+								width={720}
+								height={360}
+								src={post.data.hero}
+								alt={localized.title}
+							/>
+						)}
+
+						<h4 class="title">{localized.title}</h4>
+
+						<p class="date">
+							<FormattedDate
+								date={post.data.meta.updated_at ?? post.data.meta.created_at}
+							/>
+						</p>
+					</a>
+				</li>
+			);
+		})
+	}
+</ul>
 			</section>
 		</main>
 		<Footer />

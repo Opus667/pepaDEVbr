@@ -12,136 +12,65 @@ languages:
     title: Testando o MDX
     summary: Teste de MDX
     body: >-
-      {/\* Example MDX File: Example.mdx \*/}
+      {/* Example MDX File: Example.mdx */}
 
-
-
-
-      {/\* 1. Import React components from other files \*/}
-
+      {/* 1. Import React components from other files */}
 
       import Chart from './Chart.jsx';
 
-
       import { Callout } from './Callout.jsx';
 
-
-
-
-      {/\* 2. Export variables or components for use in the surrounding application logic/layout (e.g., for frontmatter or page titles) \*/}
-
+      {/* 2. Export variables or components for use in the surrounding application logic/layout (e.g., for frontmatter or page titles) */}
 
       export const title = 'MDX Full Features Example';
 
-
       export const year = 2025;
 
+      # {title}
 
+      MDX allows you to write standard **Markdown** content alongside _dynamic_ **JSX** components.
 
+      ---
 
-      \# {title}
+      ## Standard Markdown Features
 
+      *   **Bold** and *italic* text
 
+      *   [Links](https://mdxjs.com/) and `inline code`
 
+      *   > Blockquotes are simple and clean.
 
-      MDX allows you to write standard \*\*Markdown\*\* content alongside \_dynamic\_ \*\*JSX\*\* components.
-
-
-
-
-      \---
-
-
-
-
-      \## Standard Markdown Features
-
-
-
-
-      \*   \*\*Bold\*\* and \*italic* text
-
-
-      \*   \[Links](https://mdxjs.com/) and \`inline code\`
-
-
-      \*   > Blockquotes are simple and clean.
-
-
-
-
-      \## Embedding Components
-
-
-
+      ## Embedding Components
 
       You can embed interactive or reusable components directly within the flow of your document.
 
-
-
-
       <Callout type="tip">
-
         This is a custom React component imported at the top of the file! It accepts props just like any other JSX element.
-
       </Callout>
 
+      ### Data Visualization Example
 
-
-
-      \### Data Visualization Example
-
-
-
-
-      Here is a \`Chart\` component displaying data for the year {year}.
-
-
-
+      Here is a `Chart` component displaying data for the year {year}.
 
       <Chart color="#FF5733" year={year} />
 
+      ## Using JavaScript Expressions
 
+      You can use JavaScript expressions within curly braces `{}` to render dynamic values or perform calculations in real-time.
 
+      The current year is `{new Date().getFullYear()}`.
 
-      \## Using JavaScript Expressions
+      If we add 5 to the exported year, we get: `{year + 5}`.
 
-
-
-
-      You can use JavaScript expressions within curly braces \`{}\` to render dynamic values or perform calculations in real-time.
-
-
-
-
-      The current year is \`{new Date().getFullYear()}\`.
-
-
-
-
-      If we add 5 to the exported year, we get: \`{year + 5}\`.
-
-
-
-
-      \## Code Blocks
-
-
-
+      ## Code Blocks
 
       Standard Markdown code blocks are fully supported, often with syntax highlighting configured by your setup.
 
-
-
-
-      \`\``javascript
-
+      ```javascript
 
       // A standard JavaScript code block
 
-
-      const features = \['Markdown', 'JSX', 'Imports', 'Exports'];
-
+      const features = ['Markdown', 'JSX', 'Imports', 'Exports'];
 
       console.log(features.join(' + '));
   en:

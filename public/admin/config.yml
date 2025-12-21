@@ -93,3 +93,11 @@ collections:
     media_folder: "/src/assets/studio/"
     public_folder: "../../assets/studio/"
     fields: *project_fields
+
+  - name: "header"
+    label:
+      pt: "Cabeçalho"
+      en: "Header"
+    widget: "string"
+    default: "/"
+    pattern: ['^\/.*', "Local links must start with a forward slash (/)"]

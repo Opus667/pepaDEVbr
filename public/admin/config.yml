@@ -64,7 +64,7 @@ collections:
 
     slug: "{{year}}{{month}}{{day}}_{{hour}}{{minute}}_{{entry | slugify}}"
 
-    media_folder: "src/assets/projects/"
+    media_folder: "/src/assets/projects/"
     public_folder: "../../assets/projects/"
     fields: *project_fields
 
@@ -77,7 +77,7 @@ collections:
 
     slug: "{{year}}{{month}}{{day}}_{{hour}}{{minute}}_{{entry | slugify}}"
 
-    media_folder: "src/assets/insights/"
+    media_folder: "/src/assets/insights/"
     public_folder: "../../assets/insights/"
     fields: *project_fields
 

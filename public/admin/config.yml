@@ -1,9 +1,13 @@
-  backend:
-  name: git-gateway
+backend:
+  name: github
+  repo: Opus667/pepaDEVbr
   branch: main
+  base_url: https://api.github.com
 
-media_folder: "src/assets/media"
-public_folder: "/assets/media"
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+site_url: "https://pepa.dev.br"
 
 collections:
   - name: "blog"

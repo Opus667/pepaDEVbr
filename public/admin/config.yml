@@ -1,5 +1,6 @@
 backend:
   name: github
+  repo: Opus667/pepaDEVbr
   branch: main
 
 media_folder: "public/uploads"

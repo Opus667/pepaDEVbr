@@ -3,7 +3,7 @@ backend:
   branch: main
 
 # pasta default (fallback)
-media_folder: "src/assets/images"
+media_folder: "/src/assets/images"
 public_folder: "../../assets/images"
 
 # ---- ÂNCORA DE FIELDS ----
@@ -64,7 +64,7 @@ collections:
 
     slug: "{{year}}{{month}}{{day}}/{{hour}}{{minute}}/{{entry | slugify}}"
 
-    media_folder: "src/assets/projects"
+    media_folder: "/src/assets/projects"
     public_folder: "../../assets/projects"
     fields: *project_fields
 
@@ -77,7 +77,7 @@ collections:
 
     slug: "{{year}}{{month}}{{day}}/{{hour}}{{minute}}/{{entry | slugify}}"
 
-    media_folder: "src/assets/insights"
+    media_folder: "/src/assets/insights"
     public_folder: "../../assets/insights"
     fields: *project_fields
 
@@ -90,6 +90,6 @@ collections:
 
     slug: "{{year}}{{month}}{{day}}/{{hour}}{{minute}}/{{entry | slugify}}"
 
-    media_folder: "src/assets/studio"
+    media_folder: "/src/assets/studio"
     public_folder: "../../assets/studio"
     fields: *project_fields

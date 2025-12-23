@@ -1,10 +1,9 @@
 backend:
-  name: github
-  repo: Opus667/pepaDEVbr
+  name: git-gateway
   branch: main
 
-media_folder: "public/uploads"
-public_folder: "/uploads"
+media_folder: "src/assets/"
+public_folder: "../../assets"
 
 collections:
   - name: "blog"
@@ -18,7 +17,7 @@ collections:
       - { label: "Conteúdo", name: "body", widget: "markdown" }
   - name: "projects"
     label: "Projects"
-    folder: "src/content/projets"
+    folder: "src/content/projects"
     create: true
     slug: "{{slug}}"
     fields:

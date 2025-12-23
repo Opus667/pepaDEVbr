@@ -1,21 +1,8 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules"],
+  "exclude": ["dist"],
   "compilerOptions": {
-    "strictNullChecks": true,
-
-    /* 🔑 ESSENCIAL para Astro 5 */
-    "moduleResolution": "bundler",
-    "module": "ESNext",
-    "target": "ESNext",
-
-    /* Astro globals (JSX, assets, etc) */
-    "types": ["astro/client"],
-
-    /* Qualidade de vida */
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true
+    "strictNullChecks": true
   }
 }

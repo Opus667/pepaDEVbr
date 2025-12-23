@@ -115,7 +115,7 @@ if (!resolvedTitle) {
         )}
 
         <slot />
-        {resolvedBody}
+        {resolvedBody && <p>{resolvedBody}</p>}
       </article>
     </main>
 

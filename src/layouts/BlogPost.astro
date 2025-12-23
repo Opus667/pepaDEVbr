@@ -5,29 +5,15 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
-  title?: string;
+  title: string;
   summary?: string;
   meta: {
     created_at: Date;
     updated_at?: Date;
   };
   hero?: ImageMetadata;
-
-  // quando vem de content collections
-  data?: {
-    languages?: Record<
-      string,
-      {
-        title?: string;
-        summary?: string;
-        body?: string;
-        tags?: string[];
-      }
-    >;
-  };
-
   tags?: string[];
-  body?: string;
+  lang: 'pt' | 'en';
 }
 
 const {
@@ -35,58 +21,14 @@ const {
   summary,
   meta,
   hero,
-  data,
   tags = [],
-  body,
+  lang,
 } = Astro.props;
-
-// idioma atual
-const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'pt';
-
-// resolve conteúdo localizado (se existir)
-const localized = data?.languages?.[lang];
-
-const resolvedTitle = localized?.title ?? title;
-const resolvedSummary = localized?.summary ?? summary;
-const resolvedTags = localized?.tags ?? tags;
-const resolvedBody = localized?.body ?? body;
-
-if (!resolvedTitle) {
-  throw new Error('BlogPost: title não definido');
-}
 ---
 
 <html lang={lang}>
   <head>
-    <BaseHead
-      title={resolvedTitle}
-      description={resolvedSummary}
-    />
-    <style>
-      main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-      }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
-      .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-      }
-      .title {
-        text-align: center;
-      }
-      .date {
-        color: rgb(var(--gray));
-        margin-bottom: 0.5em;
-      }
-    </style>
+    <BaseHead title={title} description={summary} />
   </head>
 
   <body>
@@ -94,28 +36,33 @@ if (!resolvedTitle) {
 
     <main>
       <article class="prose">
-        <header class="title">
-          <h1>{resolvedTitle}</h1>
-
-          {resolvedSummary && <p>{resolvedSummary}</p>}
-
-          {meta?.created_at && (
-            <p class="date">
-              <time datetime={meta.created_at.toISOString()}>
-                {meta.created_at.toLocaleDateString()}
-              </time>
-            </p>
-          )}
+        <header>
+          <h1>{title}</h1>
+          {summary && <p>{summary}</p>}
         </header>
 
-        {hero && (
-          <div class="hero-image">
-            <Image src={hero} alt={resolvedTitle} />
-          </div>
-        )}
+        {hero && <Image src={hero} alt={title} />}
 
-        <slot />
-        {resolvedBody && <p>{resolvedBody}</p>}
+        {/* 👇 slot com filtro de idioma */}
+        <div class="content">
+          <slot />
+        </div>
+
+        <style>
+          /* esconde tudo */
+          [data-lang] {
+            display: none;
+          }
+
+          /* mostra só o idioma atual */
+          [data-lang="{lang}"] {
+            display: block;
+          }
+        </style>
+
+        <time datetime={meta.created_at.toISOString()}>
+          {meta.created_at.toLocaleDateString()}
+        </time>
       </article>
     </main>
 

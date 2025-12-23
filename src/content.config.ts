@@ -13,12 +13,12 @@ const baseSchema = ({ image }: { image: any }) =>
       pt: z.object({
         title: z.string(),
         summary: z.string(),
-        body: z.string(),
+        content: z.string(),
       }),
       en: z.object({
         title: z.string(),
         summary: z.string(),
-        body: z.string(),
+        content: z.string(),
       }),
     }),
 

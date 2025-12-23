@@ -7,11 +7,11 @@ media_folder: "src/assets/images"
 public_folder: "../../assets/images"
 
 # ---- ÂNCORA DE FIELDS ----
-project_fields: &project_fields # 🔑 slug base
+project_fields: &project_fields # 🔑 usado para o slug
   - { label: "Entry (slug base)", name: "entry", widget: "string" }
 
   - { label: "Hero", name: "hero", widget: "image", required: false }
-  - { label: "Tags", name: "tags", widget: "list" }
+  - { label: "Tags", name: "tags", widget: "list", required: false }
 
   - label: "Metadata"
     name: "meta"
@@ -30,6 +30,7 @@ project_fields: &project_fields # 🔑 slug base
           widget: "number",
           min: 0,
           max: 200,
+          required: false,
         }
 
   - label: "Languages"
@@ -42,7 +43,7 @@ project_fields: &project_fields # 🔑 slug base
         fields:
           - { label: "Título", name: "title", widget: "string" }
           - { label: "Resumo", name: "summary", widget: "text" }
-          - { label: "Body (PT)", name: "body", widget: "markdown" }
+          - { label: "Content (PT)", name: "content", widget: "markdown" }
 
       - label: "English"
         name: "en"
@@ -50,46 +51,45 @@ project_fields: &project_fields # 🔑 slug base
         fields:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Summary", name: "summary", widget: "text" }
-          - { label: "Body (EN)", name: "body", widget: "markdown" }
+          - { label: "Content (EN)", name: "content", widget: "markdown" }
 
 # ---- COLEÇÕES ----
 collections:
   - name: "projects"
     label: "Projects"
-    folder: "/src/content/projects"
+    folder: "src/content/projects"
     extension: "mdx"
     format: "frontmatter"
     create: true
 
-    # 🔥 slug definitivo
     slug: "{{year}}{{month}}{{day}}_{{hour}}{{minute}}_{{entry | slugify}}"
 
-    media_folder: "/src/assets/projects/"
-    public_folder: "../../assets/projects/"
+    media_folder: "src/assets/projects"
+    public_folder: "../../assets/projects"
     fields: *project_fields
 
   - name: "insights"
     label: "Insights"
-    folder: "/src/content/insights"
+    folder: "src/content/insights"
     extension: "mdx"
     format: "frontmatter"
     create: true
 
     slug: "{{year}}{{month}}{{day}}_{{hour}}{{minute}}_{{entry | slugify}}"
 
-    media_folder: "/src/assets/insights/"
-    public_folder: "../../assets/insights/"
+    media_folder: "src/assets/insights"
+    public_folder: "../../assets/insights"
     fields: *project_fields
 
   - name: "studio"
     label: "Studio"
-    folder: "/src/content/studio"
+    folder: "src/content/studio"
     extension: "mdx"
     format: "frontmatter"
     create: true
 
     slug: "{{year}}{{month}}{{day}}_{{hour}}{{minute}}_{{entry | slugify}}"
 
-    media_folder: "/src/assets/studio/"
-    public_folder: "../../assets/studio/"
+    media_folder: "src/assets/studio"
+    public_folder: "../../assets/studio"
     fields: *project_fields

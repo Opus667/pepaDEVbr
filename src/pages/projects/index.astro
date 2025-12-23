@@ -7,9 +7,11 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
-const posts = (await getCollection('projects')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getCollection('projects')).sort((a, b) => {
+	const aDate = a.data.meta.updated_at ?? a.data.meta.created_at;
+	const bDate = b.data.meta.updated_at ?? b.data.meta.created_at;
+	return bDate.valueOf() - aDate.valueOf();
+});
 ---
 
 <!doctype html>

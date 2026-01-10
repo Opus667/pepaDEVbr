@@ -5,7 +5,7 @@ backend:
   repo: opus667/pepaDEVbr
 
 media_folder: /src/assets
-public_folder: /assets
+public_folder: ../../assets
 
 collections:
   - name: blog

@@ -8,9 +8,9 @@ media_folder: /src/assets
 public_folder: /assets
 
 collections:
-  - name: posts
-    label: Posts
-    folder: /content/posts
+  - name: blog
+    label: Blog
+    folder: /src/content/blog
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Body, name: body, widget: markdown }

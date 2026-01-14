@@ -4,8 +4,8 @@ backend:
   name: github
   repo: opus667/pepaDEVbr
 
-media_folder: /src/assets
-public_folder: /src/assets
+media_folder: /src/assets/uploads
+public_folder: /uploads
 
 collections:
   - name: blog

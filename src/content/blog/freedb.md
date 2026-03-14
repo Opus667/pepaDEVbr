@@ -2,7 +2,7 @@
 title: 'Lembrar — Pesquisar por free DBs'
 description: 'Lorem ipsum dolor sit amet'
 pubDate: 'Mar 14 2026'
-heroImage: '../../assets/blog-placeholder-4.jpg'
+heroImage: /src/assets/sketch1757484162902.png
 ---
 
 
@@ -31,5 +31,5 @@ See also:
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzAxMjQ2MTE5XX0=
+eyJoaXN0b3J5IjpbOTY5MDMyMTgwLDcwMTI0NjExOV19
 -->
